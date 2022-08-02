@@ -19,7 +19,7 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const cors = require("cors");
 const sgMail = require("@sendgrid/mail");
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+  res.setHeader("Access-Control-Allow-Origin", "https://resonant-babka-e763d8.netlify.app/");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
 });
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "https://resonant-babka-e763d8.netlify.app/",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
@@ -119,7 +119,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "https://resonant-babka-e763d8.netlify.app/auth/google/callback",
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
