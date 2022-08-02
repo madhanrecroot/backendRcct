@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
 });
 app.use(
   cors({
-    origin: "https://resonant-babka-e763d8.netlify.app",
+    origin: "https://moonlit-palmier-63f820.netlify.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
