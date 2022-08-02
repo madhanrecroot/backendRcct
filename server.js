@@ -119,7 +119,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://resonant-babka-e763d8.netlify.app/auth/google/callback",
+      callbackURL: "https://backendrect.herokuapp.com/auth/google/callback",
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -302,7 +302,7 @@ app.get(
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3001/signUp",
+    successRedirect: "https://resonant-babka-e763d8.netlify.app/signUp",
     failureRedirect: "/auth/google/failure",
   })
 );
