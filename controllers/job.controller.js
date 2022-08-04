@@ -78,30 +78,59 @@ exports.get_latest_jobs = async (req, res) => {
     })
     .catch((err) => console.log(err.message));
 };
+
 exports.searchJobs = async (req, res) => {
-  const type = req.params.type;
-  console.log(type);
-  // const { jobTitle } = req.body;
-  // console.log(jobTitle);
-  // jobDb
-  //   .find({
-  //     jobTitle: {
-  //       $regex: jobTitle,
-  //       $options: "i",
-  //     },
-  //     country: {
-  //       $regex: jobTitle,
-  //       $ne: null,
-  //       $options: "i",
-  //     },
-  //     city: {
-  //       $regex: jobTitle,
-  //       $ne: null,
-  //       $options: "i",
-  //     },
-  //   })
-  //   .then((data) => {
-  //     return res.json(data);
-  //   })
-  //   .catch((err) => console.log(err.message));
+  const jobTitle = req.query.keyword;
+  const location = req.query.location;
+  const type = req.query.type;
+  jobDb
+    .find({
+      jobTitle: {
+        $regex: jobTitle,
+        $ne: null,
+        $options: "i",
+      },
+      country: {
+        $regex: location,
+        $ne: null,
+        $options: "i",
+      },
+      city: {
+        $regex: location,
+        $ne: null,
+        $options: "i",
+      },
+      jobType: {
+        $regex: type,
+        $ne: null,
+        $options: "i",
+      },
+    })
+    .sort({ _id: -1 })
+    .limit(10)
+    .populate("company")
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((err) => console.log(err.message));
+};
+exports.get_job_relatesd_data_count = async (req, res) => {
+  const jobCount = await jobDb.countDocuments({}).exec();
+  const companyCount = await companydb.countDocuments({}).exec();
+  const userCount = await userdb
+    .countDocuments({ recrootUserType: "Candidate" })
+    .exec();
+  const dateTo = moment().format("YYYY-MM-DD");
+  const dateFrom = moment().subtract(7, "d").format("YYYY-MM-DD");
+  const jobsLastSevenDays = await User.countDocuments({
+    created_at: { $lt: dateTo, $gt: dateFrom },
+  });
+  res
+    .status(200)
+    .json({
+      jobCount: jobCount,
+      companyCount: companyCount,
+      userCount: userCount,
+      jobsLastSevenDays: jobsLastSevenDays,
+    });
 };
