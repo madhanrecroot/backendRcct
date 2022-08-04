@@ -47,11 +47,11 @@ exports.get_valueadd = (req,res) => {
 
 exports.download_resume =(req,res)=>{
  
-// const files = req.query.resume
+// const files = "upload/resume/1658920486509_pranesh resume.pdf"
 
   try {
 //     const file = files ;
-    res.download("public/1657789363819_movielist.pdf");
+    res.download("upload/resume/1658920486509_pranesh resume.pdf");
   } catch (err) {
     console.log(err);
   }
