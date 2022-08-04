@@ -1,4 +1,5 @@
 const jobController = require("../controllers/job.controller");
+const subscriberController = require("../controllers/subscribe.controller")
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 
