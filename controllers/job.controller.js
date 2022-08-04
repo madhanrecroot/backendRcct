@@ -3,6 +3,8 @@ const ObjectId = require("mongodb").ObjectId;
 const moment = require("moment");
 const jobDb = require("../models/Jobs");
 const applyJobDb = require("../models/appliedJobs");
+const userdb = require("../models/userdb");
+const companydb = require("../models/company.db");
 
 exports.addJobs = (req, res) => {
   
