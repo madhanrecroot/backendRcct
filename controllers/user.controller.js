@@ -51,7 +51,7 @@ exports.download_resume =(req,res)=>{
 
   try {
 //     const file = files ;
-    res.download("public\1657789363819_movielist.pdf");
+    res.download("public/1657789363819_movielist.pdf");
   } catch (err) {
     console.log(err);
   }
