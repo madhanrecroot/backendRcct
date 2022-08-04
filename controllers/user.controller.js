@@ -47,11 +47,11 @@ exports.get_valueadd = (req,res) => {
 
 exports.download_resume =(req,res)=>{
  
-const files = req.query.resume
+// const files = req.query.resume
 
   try {
-    const file = files ;
-    res.download(file);
+//     const file = files ;
+    res.download("public\1657789363819_movielist.pdf");
   } catch (err) {
     console.log(err);
   }
