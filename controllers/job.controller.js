@@ -92,18 +92,18 @@ exports.searchJobs = async (req, res) => {
         $ne: null,
         $options: "i",
       },
-      country: {
-        $regex: location,
-        $ne: null,
-        $options: "i",
-      },
-      city: {
-        $regex: location,
-        $ne: null,
-        $options: "i",
-      },
       jobType: {
         $regex: type,
+        $ne: null,
+        $options: "i",
+      },
+      "address.city": {
+        $regex: location,
+        $ne: null,
+        $options: "i",
+      },
+      "address.country": {
+        $regex: location,
         $ne: null,
         $options: "i",
       },
