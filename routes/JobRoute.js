@@ -22,6 +22,12 @@ module.exports = (app) => {
   // router.post("/applyJob", 
   // // userValidationRules,
   //  jobController.applyJobs);
+  router.get("/search", jobController.searchJobs);
+  router.post("/addSubscribers", subscriberController.enter_subscribers);
+  router.get(
+    "/getJobRelatetDataCounts",
+    jobController.get_job_relatesd_data_count
+  );
   app.use("/api", router);
 };
 
