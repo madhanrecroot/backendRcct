@@ -101,7 +101,13 @@ const UserSchema = new mongoose.Schema(
       totalWorkExperience: String,
       jobsPreference: [],
       expectedSalary: String,
-      skills: [],
+      skills: [
+        {
+          skillName: String,
+          Experience: String,
+          Compitance: String,
+        },
+      ],
       gender: String,
       languages: [],
       cvSetting: String,
@@ -109,22 +115,30 @@ const UserSchema = new mongoose.Schema(
       nationality: [],
       countrieswithworkingRights: [],
       availableToWork: {
-        days: Number,
-        time: String,
+        days: [],
+        fromDate: String,
+        toDate:String
       },
+      education:[
+        {
+          collegeName: String,
+          country: String,
+          degreeName: String,
+          duration: String,
+          experience: String,
+          graduate: String,
+          logo: String,
+          state: String,
+          fromDate: String,
+          toDate: String,
+        },
+      ],
       workExperience: [
         {
           companyName: String,
           experience: String,
           duration: String,
           location: String,
-        },
-      ],
-      skils: [
-        {
-          skillName: String,
-          Experience: String,
-          Compitance: String,
         },
       ],
       projects: [
