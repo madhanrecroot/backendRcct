@@ -23,7 +23,7 @@ exports.get_experience = (req,res) => {
   const id = req.params.id;
  pipeline =[
   { $match: { _id: ObjectId(id) } },
-  { $project: { "resume":1,"email":1 ,"name":1,"profpicFileLocation":1 }}
+  { $project: { "resume":1,"email":1 ,"firstName":1,"lastName":1,"profpicFileLocation":1 }}
  ]
  Users.aggregate(pipeline).then((data) => {
   return res.status(200).json(data);
@@ -522,7 +522,8 @@ exports.edit_personalName =(req, res) => {
   const id =req.params.id;
   Users.findOneAndUpdate({'_id':ObjectId(id)},
   {$set:{
-    'name':req.body.name,
+    'firstName':req.body.firstName,
+    'lastName':req.body.lastName,
     'resume.mobileNumber':req.body.number
   }})
   .then((data) => {
