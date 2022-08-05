@@ -97,16 +97,14 @@ exports.searchJobs = async (req, res) => {
         $ne: null,
         $options: "i",
       },
-      "address.city": {
-        $regex: location,
-        $ne: null,
-        $options: "i",
-      },
-      "address.country": {
-        $regex: location,
-        $ne: null,
-        $options: "i",
-      },
+      // address: {
+      //   city: {
+      //     $regex: location,
+      //     $ne: null,
+      //     $options: "i",
+      //   },
+      // },
+      "address.city": { $regex: location, $options: "si" },
     })
     .sort({ _id: -1 })
     .limit(10)
@@ -116,6 +114,7 @@ exports.searchJobs = async (req, res) => {
     })
     .catch((err) => console.log(err.message));
 };
+
 exports.get_job_relatesd_data_count = async (req, res) => {
   const jobCount = await jobDb.countDocuments({}).exec();
   const companyCount = await companydb.countDocuments({}).exec();
