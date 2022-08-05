@@ -72,6 +72,16 @@ const UserSchema = new mongoose.Schema(
       type: String,
       authantication: String,
     },
+    profpicFileLocation:{
+      photo:{
+        type:String,
+      default: null
+    },
+    photoName:{
+      type:String,
+      default:null
+    }
+    },
     resume: {
       resumeFileLocation: [
         {
