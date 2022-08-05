@@ -318,7 +318,66 @@ app.get("/logout", (req, res) => {
   res.send("Goodbye!");
 });
 //////////////////////////////////////////////////////////
+app.put(
+  "/resendCode",
+  async(req,res) => {
+   const id = req.body.id;
+   const name = req.body.firstName;
+   const email =req.body.email;
+   const codes = Math.floor(1000 + Math.random() * 9000);
+  console.log(req.body,'code')
+   User.findOneAndUpdate({'_id':id},
+ { $set:{
+    'referral_code':codes
+  }}
+  ).then((data) => {
+    if(!data){
+      res.status(400).send("User not in this data")
+    }
+    else{
+      res.status(200).json({codes});
+    }
+  })
+  .catch((err) => {
+    res.status(400).send(err);
+  })
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const msg = {
+        to: email,
+        from: "dilanjachandrarathna@gmail.com", // Use the email address or domain you verified above
+        // fromname: "recroot",
+        subject: "Recrrot Verification Code",
+        text: `Hi ${name}. your OTP NO IS ${codes}`,
+        html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+          <div style="border-bottom:1px solid #eee">
+            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Recroot</a>
+          </div>
+          <p style="font-size:1.1em">Hi,${name}</p>
+          <p>Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. </p>
+          <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${codes}</h2>
+          <p style="font-size:0.9em;">Regards,<br />Recroot</p>
+          <hr style="border:none;border-top:1px solid #eee" />
+          <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+          </div>
+        </div>
+      </div>`,
+      }; (async () => {
+        try {
+          await sgMail.send(msg);
+          console.log(email);
+          console.log("Email Send Sucessfully");
+          // res.status(200).json({ message: "Email Send Sucessfully" });
+        } catch (error) {
+          console.error(error);
 
+          if (error.response) {
+            console.error(error.response.body);
+          }
+        }
+      })();
+  }
+)
 app.post(
   "/register",
   checkNotAuthenticated, // username must be an email
