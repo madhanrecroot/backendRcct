@@ -714,3 +714,23 @@ exports.get_return =(req,res)=>{
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ a: 1 }));
 }
+exports.edit_RefeCode = (req,res) => {
+  const id =req.body.id;
+  const code =req.body.code;
+  console.log(id,code,'ckee')
+  Users.findOneAndUpdate({'_id':ObjectId(id)},
+ { $set:{
+    'email_is_verified':code
+  }}
+  ).then((data) => {
+    if(!data){
+      res.status(400).send("User not in this data")
+    }
+    else{
+      res.status(201).send("User save Successfully")
+    }
+  })
+  .catch((err) => {
+    res.status(400).send(err);
+  })
+}
