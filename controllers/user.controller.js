@@ -735,3 +735,160 @@ exports.edit_RefeCode = (req,res) => {
     res.status(400).send(err);
   })
 }
+
+exports.update_ressume_details = async (req, res) => {
+  const { userId, jobField } = req.body;
+  const array = [];
+  let fileas = req.files;
+  fileas.forEach((fileas) => {
+    const filesdetaoils = {
+      resume: fileas.path,
+      resumeName: fileas.originalname,
+    };
+    array.push(filesdetaoils);
+  });
+  User.findByIdAndUpdate(
+    req.body.userId,
+    {
+      desiredJobField: jobField,
+      $push: { "resume.resumeFileLocation": array },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Updated User : ", docs);
+        return res.send("Resume Uploded successfully");
+      }
+    }
+  );
+};
+exports.add_user_resume = async (req, res) => {
+  const { user_id, resume } = req.body;
+  console.log(user_id);
+  User.findByIdAndUpdate(user_id, { resume: resume }, function (err, docs) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Updated User : ", docs);
+      return res.send("user save succesffuly");
+    }
+  });
+};
+exports.create_resume = async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    careaarlevel,
+    totalWorkExperience,
+    jobPreference,
+    salary,
+    salaryCurrancy,
+    gender,
+    language,
+    cvSetting,
+  } = req.body.createResume;
+  console.log(req.body);
+  console.log(req.params.id);
+  User.findByIdAndUpdate(
+    req.params.id,
+    {
+      firstName: firstName,
+      lastName: lastName,
+      "resume.carearLevel": careaarlevel,
+      "resume.totalWorkExperience": totalWorkExperience,
+      "resume.expectedSalary": salary,
+      "resume.gender": gender,
+      "resume.languages": language,
+      "resume.cvSetting": cvSetting,
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Updated User : ", docs);
+        return res.send("Resume Uploded successfully");
+      }
+    }
+  );
+};
+
+exports.update_resume = async (req, res) => {
+  User.findByIdAndUpdate(
+    req.params.id,
+    {
+      "resume.country":req.body.inputPersonalDetailsCountry,
+      "resume.nationality":req.body.inputPersonalNationality,
+      "resume.countrieswithworkingRights":req.body.inputCountriesWithWorkingRights,
+       "resume.workExperience":req.body.inputWorkingExperience,
+       "resume.skills":req.body.inputSkills,
+       "resume.projects":req.body.inputprojects,
+       "resume.traning":req.body.trannigInput,
+       "resume.education":req.body.inputEducatoin,
+       "resume.availableToWork.days":req.body.availabilityForWork.days,
+       "resume.availableToWork.fromDate":req.body.availabilityForWork.from,
+       "resume.availableToWork.fromDate":req.body.availabilityForWork.to,
+       "resume.socialMediaLink":req.body.inputSocialMediaLink
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.send("Resume Uploded successfully");
+      }
+    }
+  )
+};
+
+exports.certificates = async (req, res) => {
+  const array = [];
+  let fileas = req.files;
+  fileas.forEach((fileas) => {
+    const filesdetaoils = {
+      certificate: fileas.path,
+      certificate: fileas.originalname,
+    };
+    array.push(filesdetaoils);
+  });
+  User.findByIdAndUpdate(
+    req.body.userId,
+    {
+      $push: { "resume.certificateFileLocation": array },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Updated User : ", docs);
+        return res.send("certificates Uploded successfully");
+      }
+    }
+  );
+};
+exports.coverLetter = async (req, res) => {
+  const array = [];
+  let fileas = req.files;
+  fileas.forEach((fileas) => {
+    const filesdetaoils = {
+      cover: fileas.path,
+      coverName: fileas.originalname,
+    };
+    array.push(filesdetaoils);
+  });
+  User.findByIdAndUpdate(
+    req.body.userId,
+    {
+      $push: { "resume.coverLetterFileLocation": array },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Updated User : ", docs);
+        return res.send("coverLetter Uploded successfully");
+      }
+    }
+  );
+};
+
+
