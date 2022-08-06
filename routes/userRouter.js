@@ -83,5 +83,23 @@ module.exports = (app) => {
     userController.add_cover
   );
   router.post("/updateUserResumeDetails", userController.add_user_resume);
+  router.post(
+    "/updateResumeDetails",
+    upload.array("uplodedFiles", 10),
+    userController.update_ressume_details
+  );
+  router.put("/createResumeDetails/:id", userController.create_resume);
+  router.post("/finalCreateResume/:id",userController.update_resume)
+  router.post(
+    "/updateCoverLetterFiles",
+    upload2.array("coverLettters", 10),
+    userController.coverLetter
+  );
+  router.post(
+    "/updateCertificatesFiles",
+    upload3.array("certificates", 10),
+    userController.certificates
+  );
+
   app.use("/api", router);
 };
