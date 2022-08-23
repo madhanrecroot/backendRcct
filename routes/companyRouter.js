@@ -23,5 +23,17 @@ module.exports = (app) => {
   router.get ("/getApplyCanditates/:id",companyController.getApplied_Candit)
   router.get ("/getResumeSin/:id",companyController.getResumebyID)
   router.get("/getJobsComp/:id",companyController.getJobsbycop)
+   router.get("/getMember/:id",companyController.getMembers)
+  router.post("/updateCompanyDetails/:id",companyController.update_details)
+  router.post(
+    "/updateCompanyLogo/:id",
+    upload5.single("logo"),
+    companyController.add_CompanyLogo
+  );
+  router.post(
+    "/updateCompanyPhotos/:id",
+    upload6.array("compphotos", 5),
+    companyController.companyPhotos
+  );
   app.use("/api", router);
 };
