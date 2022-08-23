@@ -1,4 +1,5 @@
 const companyController = require("../controllers/company.controller");
+const {upload5,upload6 } = require("../multer");
 const router = require("express").Router();
 module.exports = (app) => {
   router.get("/company", companyController.company_record);
