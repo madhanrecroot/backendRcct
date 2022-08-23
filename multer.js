@@ -40,6 +40,20 @@ const storage4 = multer.diskStorage({
     }
     
 })
+const storage5 = multer.diskStorage({
+    destination: './upload/complogo',
+    filename: (req, file, cb) =>{
+        return cb(null, `${Date.now()}_${path.basename(file.originalname)}`)
+    }
+    
+})
+const storage6 = multer.diskStorage({
+    destination: './upload/compPhotos',
+    filename: (req, file, cb) =>{
+        return cb(null, `${Date.now()}_${path.basename(file.originalname)}`)
+    }
+    
+})
 
 
 
@@ -82,6 +96,30 @@ exports.upload3 = multer({
 
 exports.upload4 = multer({
     storage: storage4,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+      }
+});
+
+exports.upload5 = multer({
+    storage: storage5,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+      }
+});
+
+exports.upload6 = multer({
+    storage: storage6,
     fileFilter: (req, file, cb) => {
         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
           cb(null, true);
