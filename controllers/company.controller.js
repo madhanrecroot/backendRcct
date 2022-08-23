@@ -294,3 +294,72 @@ exports.getJobsbycop = async (req,res) => {
     })
     .catch((err) => console.log(err.message));
 }
+
+exports.getMembers = async (req,res) => {
+const id = req.params.id;
+pipeline =[
+  {$match:{companyId:ObjectId(id),recrootUserType:'Member'}}
+]
+Users.aggregate(pipeline)
+.then((data) => {
+  return res.json(data);
+})
+.catch((err)=>console.log(err.message))
+}
+
+exports.companyPhotos = async (req, res) => {
+  const array = [];
+  let fileas = req.files;
+  fileas.forEach((fileas) => {
+    const filesdetaoils = {
+      photo: fileas.path,
+      photosName: fileas.originalname,
+    };
+    array.push(filesdetaoils);
+  });
+  companyDb.findByIdAndUpdate(
+    req.params.id,
+    {
+      $push: { "companyPhotos": array },
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Updated Photos : ", docs);
+        return res.send("Photos Uploded successfully");
+      }
+    }
+  );
+};
+
+exports.add_CompanyLogo = async (req, res) => {
+  const id = req.params.id;
+  companyDb.findOneAndUpdate({"_id":ObjectId(id)},
+  {$push:{'companyLogo':{logo:req.file.path,
+   logoName:req.file.originalname}}})
+    .then(() => {
+      return res.send("resume save succesfully");
+    })
+    .catch((err) => console.log(err.message));
+};
+
+exports.update_details = async (req, res) => {
+  companyDb.findByIdAndUpdate(
+    req.params.id,
+    {
+      "basicInformation":req.body.basicinformation,
+      "address":req.body.inputPersonalNationality,
+      "companyInformation":req.body.cmpinformation,
+       "members":req.body.members,
+       "links":req.body.links,
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.send("Resume Uploded successfully");
+      }
+    }
+  )
+};
