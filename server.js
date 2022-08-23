@@ -171,6 +171,7 @@ app.use("/cover", express.static("upload/cover"));
 require("./routes/companyRouter")(app);
 require("./routes/userRouter")(app);
 require("./routes/JobRoute")(app);
+require("./routes/interviewRouter")(app);
 
 app.get("/", checkAuthenticated, (req, res) => {
   res.status(200).json({ message: "User loged in Sucessfully" });
@@ -405,6 +406,7 @@ app.post(
         sector: req.body.sector,
         organization: req.body.organization,
         recrootUserType: req.body.recrootUserType,
+        companyId:req.body.companyId,
         email: req.body.email,
         password: hashedPassword,
       });
