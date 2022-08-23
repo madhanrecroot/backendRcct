@@ -16,18 +16,15 @@ const JobsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    applicationDedline: {
-      type: Date,
+    applicationDeadline: {
+      type: String,
       required: true,
     },
     jobDescription: {
       type: String,
       required: true,
     },
-    requiredSkill: {
-      type: [String],
-      required: true,
-    },
+    requiredSkill:[],
     referredBy: {
       type: String,
       default: null,
@@ -43,32 +40,31 @@ const JobsSchema = new mongoose.Schema(
       salaryCrrancy: String,
     },
     essentialInformation: {
-      carrerLevel: String,
+      careerLevel: String,
       experience: String,
       qualification: String,
-      preferdCandidateLocation: String,
-      typeOfWork: String,
+      // preferdCandidateLocation: String,
+      typeWorks: String,
     },
-    quistion: [
-      {
-        question: String,
-        quizType: String,
-        answer: {
-          first: String,
-        },
-      },
-    ],
+    // quistion: [
+    //   {
+    //     question: String,
+    //     quizType: String,
+    //     answer: {
+    //       first: String,
+    //     },
+    //   },
+    // ],
     address: {
       country: String,
       state: String,
       city: String,
-      postalCode: String,
+      pincode: String,
       address: String,
-      latitute: String,
-      longatute: String,
+      // latitute: String,
+      // longatute: String,
     },
   },
-
   { timestamps: true },
   { strict: false }
 );
