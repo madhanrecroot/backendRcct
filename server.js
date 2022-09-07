@@ -13,6 +13,8 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 // const initializePassport = require("./passport-config");
 const User = require("./models/Users");
+const companyDb = require("./models/company.db");
+
 const { body, validationResult } = require("express-validator");
 const auth = require("./middleware/jwtAuth");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
@@ -399,6 +401,10 @@ app.post(
     }
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const newComany = await companyDb.create({
+        company_name: req.body.organization,
+      });
+      // newComany.save();
       const newUser = await User.create({
         id: Date.now().toString(),
         firstName: req.body.firstName,
@@ -406,9 +412,9 @@ app.post(
         sector: req.body.sector,
         organization: req.body.organization,
         recrootUserType: req.body.recrootUserType,
-        companyId:req.body.companyId,
         email: req.body.email,
         password: hashedPassword,
+        companyId: newComany._id,
       });
       const email = newUser.email;
 
