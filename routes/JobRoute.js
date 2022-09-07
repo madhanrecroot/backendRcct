@@ -1,5 +1,5 @@
 const jobController = require("../controllers/job.controller");
-const subscriberController = require("../controllers/subscribe.controller")
+const subscriberController = require("../controllers/subscribe.controller");
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 
@@ -17,6 +17,8 @@ module.exports = (app) => {
   router.get("/search/:id/:id/:id", jobController.searchJobs);
   router.post("/addJob/:id", jobController.addJobs);
   router.post("/applyJob", jobController.applyJobs);
+  router.post("/addType", jobController.addJObtype);
+  router.put("/updateStatus/:id", jobController.UpdateStatus);
   // router.post("/addJob/:id", 
   // // userValidationRules,
   //  jobController.addJobs);
@@ -29,6 +31,9 @@ module.exports = (app) => {
     "/getJobRelatetDataCounts",
     jobController.get_job_relatesd_data_count
   );
+  router.get("/getTypesJobs", jobController.getJobsTypes);
+  router.get("/getTypesSingle/:id", jobController.getJobsTypesId);
+
   app.use("/api", router);
 };
 

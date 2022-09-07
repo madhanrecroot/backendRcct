@@ -24,7 +24,7 @@ module.exports = (app) => {
   router.get ("/getApplyCanditates/:id",companyController.getApplied_Candit)
   router.get ("/getResumeSin/:id",companyController.getResumebyID)
   router.get("/getJobsComp/:id",companyController.getJobsbycop)
-   router.get("/getMember/:id",companyController.getMembers)
+  router.get("/getMember/:id",companyController.getMembers)
   router.post("/updateCompanyDetails/:id",companyController.update_details)
   router.post(
     "/updateCompanyLogo/:id",

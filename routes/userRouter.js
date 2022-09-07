@@ -47,7 +47,7 @@ module.exports = (app) => {
   router.put("/editTraining/:id",userController.edit_training);
   router.put("/editPersonal/:id",userController.edit_personal);
   router.put("/editPersonalName/:id",userController.edit_personalName);
-   router.put("/verifyEmail",userController.edit_RefeCode)
+  router.put("/verifyEmail",userController.edit_RefeCode)
 
   router.post("/postExp/:id",userController.post_exp);
   router.post("/postProject/:id",userController.post_project);
