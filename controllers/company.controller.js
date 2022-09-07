@@ -167,7 +167,7 @@ exports.edit_company = (req, res) => {
     {
       $set: {
         company_name: company_name,
-        company_logo: company_logo,
+        company_logo: company_logo[0],
         head_q_location: head_q_location,
         position: position,
         current_location: current_location,
@@ -263,7 +263,15 @@ exports.getApplied_Candit = async (req, res) => {
         foreignField: "_id",
         as: "userDetail"
     }
-},{$unwind:"$userDetail"} ];
+},{$unwind:"$userDetail"},{
+  $lookup:
+  {
+      from:"jobs",
+      localField: "jobId",
+      foreignField: "_id",
+      as: "jobDetail"
+  }
+},{$unwind:"$jobDetail"} ];
   appliedJobs
     .aggregate(pipeline)
     .then((data) => {
@@ -274,6 +282,7 @@ exports.getApplied_Candit = async (req, res) => {
 };
 
 exports.getResumebyID = async (req,res) => {
+  console.log(req.params.id)
   const id = req.params.id;
   Users.findOne({'resume.resumeFileLocation._id':ObjectId(id)},{"resume.resumeFileLocation.$":1})
   .then((data)=>{
