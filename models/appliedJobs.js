@@ -24,6 +24,11 @@ const appliedJobsSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Job",
       },
+      status:{
+        type: String,
+        default: "unview",
+      },
+      question:[]
 
     },
     { timestamps: true },

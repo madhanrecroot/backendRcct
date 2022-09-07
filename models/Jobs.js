@@ -12,6 +12,10 @@ const JobsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    jobRole: {
+      type: String,
+      required: true,
+    },
     jobType: {
       type: String,
       required: true,
@@ -46,15 +50,7 @@ const JobsSchema = new mongoose.Schema(
       // preferdCandidateLocation: String,
       typeWorks: String,
     },
-    // quistion: [
-    //   {
-    //     question: String,
-    //     quizType: String,
-    //     answer: {
-    //       first: String,
-    //     },
-    //   },
-    // ],
+    question: [],
     address: {
       country: String,
       state: String,
