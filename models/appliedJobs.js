@@ -13,7 +13,7 @@ const appliedJobsSchema = new mongoose.Schema(
         ref: "User",
       },
       resumeId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User",
       },
       coverId: {
