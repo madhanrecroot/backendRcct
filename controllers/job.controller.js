@@ -19,8 +19,8 @@ exports.addJobs = (req, res) => {
     jobApplyType,
     salary}=req.body.details
     const essentialInformation = req.body.essential
-    const jobTitle = req.body.jobTitle.jobNam
-    const jobRole = req.body.jobRole.role
+    const jobTitle = req.body.jobTitle
+    const jobRole = req.body.jobRole
     // quistion,
     const question = req.body.question
     const jobDescription = req.body.jobDescription
