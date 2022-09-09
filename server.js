@@ -405,7 +405,8 @@ app.post(
         company_name: req.body.organization,
       });
       // newComany.save();
-      const newUser = await User.create({
+       const newUser = await User.create(
+        req.body.recrootUserType !== "Member" ? {
         id: Date.now().toString(),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -415,6 +416,16 @@ app.post(
         email: req.body.email,
         password: hashedPassword,
         companyId: newComany._id,
+      } : {
+        id: Date.now().toString(),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        sector: req.body.sector,
+        organization: req.body.organization,
+        recrootUserType: req.body.recrootUserType,
+        email: req.body.email,
+        password: hashedPassword,
+        companyId: req.body.companyId,
       });
       const email = newUser.email;
 
