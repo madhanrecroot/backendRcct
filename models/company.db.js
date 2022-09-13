@@ -10,7 +10,15 @@ const CompanySchema = mongoose.Schema(
     members:[],
     links:{},
     companyPhotos:[],
-    companyLogo:{}
+    companyLogo:{
+       logo:{
+        type:String,
+        default:null
+      },
+      logoName:{
+        type:String,
+        default:null
+      }
   },
   { timestamps: true }
 );
