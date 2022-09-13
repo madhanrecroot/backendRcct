@@ -316,6 +316,18 @@ Users.aggregate(pipeline)
 .catch((err)=>console.log(err.message))
 }
 
+exports.getCompany = async (req,res) => {
+const id = req.params.id;
+pipeline =[
+  {$match:{'_id':ObjectId(id)}}
+]
+companyDb.aggregate(pipeline)
+.then((data) => {
+  return res.json(data);
+})
+.catch((err)=>console.log(err.message))
+}
+
 exports.companyPhotos = async (req, res) => {
   const array = [];
   let fileas = req.files;
@@ -329,7 +341,7 @@ exports.companyPhotos = async (req, res) => {
   companyDb.findByIdAndUpdate(
     req.params.id,
     {
-      $push: { "companyPhotos": array },
+      $set: { "companyPhotos": array },
     },
     function (err, docs) {
       if (err) {
@@ -345,10 +357,10 @@ exports.companyPhotos = async (req, res) => {
 exports.add_CompanyLogo = async (req, res) => {
   const id = req.params.id;
   companyDb.findOneAndUpdate({"_id":ObjectId(id)},
-  {$push:{'companyLogo':{logo:req.file.path,
+  {$set:{'companyLogo':{logo:req.file.path,
    logoName:req.file.originalname}}})
     .then(() => {
-      return res.send("resume save succesfully");
+      return res.send("logo save succesfully");
     })
     .catch((err) => console.log(err.message));
 };
@@ -358,10 +370,11 @@ exports.update_details = async (req, res) => {
     req.params.id,
     {
       "basicInformation":req.body.basicinformation,
-      "address":req.body.inputPersonalNationality,
+      "address":req.body.locate,
       "companyInformation":req.body.cmpinformation,
        "members":req.body.members,
        "links":req.body.links,
+       "company_name":req.body.basicinformation.cmpname
     },
     function (err, docs) {
       if (err) {
@@ -372,3 +385,15 @@ exports.update_details = async (req, res) => {
     }
   )
 };
+exports.open_photos =(req,res)=>{
+ 
+  const files = req.query.compPhotos
+  
+    try {
+      const file = files ;
+      res.download(file);
+    } catch (err) {
+      console.log(err);
+    }
+  
+  }
