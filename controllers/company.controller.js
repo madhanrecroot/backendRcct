@@ -328,41 +328,46 @@ companyDb.aggregate(pipeline)
 .catch((err)=>console.log(err.message))
 }
 
-exports.companyPhotos = async (req, res) => {
-  const array = [];
-  let fileas = req.files;
-  fileas.forEach((fileas) => {
-    const filesdetaoils = {
-      photo: fileas.path,
-      photosName: fileas.originalname,
-    };
-    array.push(filesdetaoils);
-  });
-  companyDb.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: { "companyPhotos": array },
-    },
-    function (err, docs) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Updated Photos : ", docs);
-        return res.send("Photos Uploded successfully");
-      }
-    }
-  );
-};
+// exports.companyPhotos = async (req, res) => {
+//   const array = [];
+//   let fileas = req.files;
+//   fileas.forEach((fileas) => {
+//     const filesdetaoils = {
+//       photo: fileas.path,
+//       photosName: fileas.originalname,
+//     };
+//     array.push(filesdetaoils);
+//   });
+//   companyDb.findByIdAndUpdate(
+//     req.params.id,
+//     {
+//       $set: { "companyPhotos": array },
+//     },
+//     function (err, docs) {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         console.log("Updated Photos : ", docs);
+//         return res.send("Photos Uploded successfully");
+//       }
+//     }
+//   );
+// };
 
 exports.add_CompanyLogo = async (req, res) => {
   const id = req.params.id;
-  companyDb.findOneAndUpdate({"_id":ObjectId(id)},
-  {$set:{'companyLogo':{logo:req.file.path,
-   logoName:req.file.originalname}}})
-    .then(() => {
-      return res.send("logo save succesfully");
-    })
-    .catch((err) => console.log(err.message));
+  if (req.file === undefined || null) {
+    console.log(id)
+  } else {
+    
+    companyDb.findOneAndUpdate({"_id":ObjectId(id)},
+    {$set:{'companyLogo':{logo:req.file.path,
+     logoName:req.file.originalname}}})
+      .then(() => {
+        return res.send("logo save succesfully");
+      })
+      .catch((err) => console.log(err.message));
+  }
 };
 
 exports.update_details = async (req, res) => {
