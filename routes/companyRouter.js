@@ -31,10 +31,13 @@ module.exports = (app) => {
     upload5.single("logo"),
     companyController.add_CompanyLogo
   );
-  router.post(
-    "/updateCompanyPhotos/:id",
-    upload6.array("compphotos", 5),
-    companyController.companyPhotos
-  );
+  // router.post(
+  //   "/updateCompanyPhotos/:id",
+  //   upload6.array("compphotos", 5),
+  //   companyController.companyPhotos
+  // );
   app.use("/api", router);
 };
+
+router.get ("/getCompanyDetails/:id",companyController.getCompany)
+router.get ("/getCompanyPhotos/",companyController.open_photos)
