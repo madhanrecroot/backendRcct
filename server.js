@@ -401,32 +401,46 @@ app.post(
     }
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const newComany = await companyDb.create({
-        company_name: req.body.organization,
-      });
-      // newComany.save();
-       const newUser = await User.create(
-        req.body.recrootUserType !== "Member" ? {
-        id: Date.now().toString(),
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        sector: req.body.sector,
-        organization: req.body.organization,
-        recrootUserType: req.body.recrootUserType,
-        email: req.body.email,
-        password: hashedPassword,
-        companyId: newComany._id,
-      } : {
-        id: Date.now().toString(),
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        sector: req.body.sector,
-        organization: req.body.organization,
-        recrootUserType: req.body.recrootUserType,
-        email: req.body.email,
-        password: hashedPassword,
-        companyId: req.body.companyId,
-      });
+   if (req.body.recrootUserType == "Candidate") {
+        newUser = await User.create({
+          id: Date.now().toString(),
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          sector: req.body.sector,
+          organization: req.body.organization,
+          recrootUserType: req.body.recrootUserType,
+          email: req.body.email,
+          password: hashedPassword,
+          companyId: null,
+        });
+      } else if(req.body.recrootUserType == "Member"){
+        newUser = await User.create({
+          id: Date.now().toString(),
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          sector: req.body.sector,
+          organization: req.body.organization,
+          recrootUserType: req.body.recrootUserType,
+          email: req.body.email,
+          password: hashedPassword,
+          companyId: req.body.companyId,
+        });
+      }else{
+        const newComany = await companyDb.create({
+          company_name: req.body.organization,
+        });
+        newUser = await User.create({
+          id: Date.now().toString(),
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          sector: req.body.sector,
+          organization: req.body.organization,
+          recrootUserType: req.body.recrootUserType,
+          email: req.body.email,
+          password: hashedPassword,
+          companyId: newComany._id,
+        });
+      }
       const email = newUser.email;
 
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
