@@ -47,3 +47,29 @@ exports.get_interviewdata = (req, res) => {
     return res.status(200).send(data);
   });
 };
+
+exports.Update_interview = (req, res) => {
+  interview.findByIdAndUpdate(
+    req.body._id,
+    {
+    day:req.body.day,
+    canditateId:req.body.canditateId,
+    companyId:req.body.companyId,
+    jobId:req.body.jobId,
+    subject:req.body.subject,
+    duration:req.body.duration,
+    host:req.body.host,
+    event:req.body.event,
+    zone:req.body.zone,
+    time:req.body.time,
+    search:req.body.search,
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.send("Interview Update successfully");
+      }
+    }
+  )
+};

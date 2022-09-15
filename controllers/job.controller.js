@@ -50,8 +50,10 @@ exports.addJobs = (req, res) => {
     .catch((err) => console.log(err.message));
 };
 
-exports.applyJobs = (req, res) => {
 
+
+exports.applyJobs = (req, res) => {
+console.log(req.body)
   const {
     resumeId,
     coverId,
@@ -186,3 +188,63 @@ const status =req.body.status
       }
     });
   };
+  exports.UpdateJobStatus = async (req, res) => {
+const id = req.params.id
+const status =req.body.status
+    // console.log(id,'apply');
+    jobDb.findByIdAndUpdate(
+      id, { status: status }, function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.send("Status Has Been Updated Sucessfully");
+      }
+    });
+  };
+
+  
+exports.update_Job_details = async (req, res) => {
+
+  const{ 
+    // jobTitle,
+    jobType,
+    applicationDeadline,
+     requiredSkill,
+    // referredBy,
+    jobApplyType,
+    salary}=req.body.details
+    const essentialInformation = req.body.essential
+    const jobTitle = req.body.jobTitle
+    const jobRole = req.body.jobRole
+    // quistion,
+    const question = req.body.question
+    const jobDescription = req.body.jobDescription
+  const address =req.body.location
+  const company = req.params.Cid
+console.log(req.params.Cid,req.params.id)
+  jobDb.findByIdAndUpdate(
+    ObjectId(req.params.id),
+    {
+      company:company,
+      jobTitle: jobTitle,
+      jobType: jobType,
+      jobRole:jobRole,
+      applicationDeadline: applicationDeadline,
+      jobDescription: jobDescription,
+      requiredSkill: requiredSkill,
+      // referredBy: referredBy,
+      jobApplyType: jobApplyType,
+      salary: salary,
+      essentialInformation: essentialInformation,
+      question: question,
+      address: address,
+    },
+    function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        return res.send("Resume Uploded successfully");
+      }
+    }
+  )
+};
