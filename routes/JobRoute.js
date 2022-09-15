@@ -16,9 +16,11 @@ module.exports = (app) => {
   router.get("/getLatestJobs", jobController.get_latest_jobs);
   router.get("/search/:id/:id/:id", jobController.searchJobs);
   router.post("/addJob/:id", jobController.addJobs);
+  router.post("/editJob/:id/:Cid", jobController.update_Job_details);
   router.post("/applyJob", jobController.applyJobs);
   router.post("/addType", jobController.addJObtype);
   router.put("/updateStatus/:id", jobController.UpdateStatus);
+  router.put("/updateJobStatus/:id", jobController.UpdateJobStatus);
   // router.post("/addJob/:id", 
   // // userValidationRules,
   //  jobController.addJobs);
