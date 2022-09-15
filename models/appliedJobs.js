@@ -13,12 +13,13 @@ const appliedJobsSchema = new mongoose.Schema(
         ref: "User",
       },
       resumeId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId ,
         ref: "User",
       },
       coverId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User",
+        default:null
       },
       jobId: {
         type: mongoose.Schema.Types.ObjectId,

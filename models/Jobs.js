@@ -33,6 +33,10 @@ const JobsSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
+    status: {
+      type: String,
+      default: 'active',
+    },
     jobApplyType: {
       type: String,
       default: null,
@@ -44,7 +48,7 @@ const JobsSchema = new mongoose.Schema(
       salaryCrrancy: String,
     },
     essentialInformation: {
-      careerLevel: String,
+      careerlevel: String,
       experience: String,
       qualification: String,
       // preferdCandidateLocation: String,
