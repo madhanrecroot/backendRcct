@@ -248,3 +248,19 @@ console.log(req.params.Cid,req.params.id)
     }
   )
 };
+
+
+exports.getApplJObs = async (req, res) => {
+  const id  = req.params.id
+  console.log(id)
+  if(id === undefined || id === null){
+    console.log('object')
+  }else{
+    applyJobDb.aggregate([ { $match: { candidateId: ObjectId(id) } }])
+      .then((data) => {
+        return res.json(data);
+      })
+      .catch((err) => console.log(err.message));
+  }
+};
+
