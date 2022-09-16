@@ -35,6 +35,7 @@ module.exports = (app) => {
   );
   router.get("/getTypesJobs", jobController.getJobsTypes);
   router.get("/getTypesSingle/:id", jobController.getJobsTypesId);
+  router.get("/getApplyjobs/:id", jobController.getApplJObs);
 
   app.use("/api", router);
 };
