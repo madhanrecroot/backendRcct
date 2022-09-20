@@ -5,8 +5,16 @@ const CompanySchema = mongoose.Schema(
     company_name:{
       type:String
     },
-    basicInformation:{},
-    companyInformation:{},
+    basicInformation:{cmpname:{
+      type:String,
+      default:null
+    } },
+    companyInformation:{
+      infosector:{
+        type:String,
+      default:null  
+      }
+    },
     members:[],
     address:{},
     links:{},

@@ -79,11 +79,11 @@ const UserSchema = new mongoose.Schema(
     profpicFileLocation:{
       photo:{
         type:String,
-      default: 'nul'
+      default: null
     },
     photoName:{
       type:String,
-      default:'nul'
+      default:null
     }
     },
     resume: {
