@@ -427,7 +427,8 @@ app.post(
         });
       }else{
         const newComany = await companyDb.create({
-          company_name: req.body.organization,
+          basicInformation: {cmpname:req.body.organization},
+          companyInformation:{infosector:req.body.sector}
         });
         newUser = await User.create({
           id: Date.now().toString(),
@@ -441,6 +442,7 @@ app.post(
           companyId: newComany._id,
         });
       }
+     
       const email = newUser.email;
 
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
