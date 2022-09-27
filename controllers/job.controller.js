@@ -79,8 +79,9 @@ console.log(req.body)
 }
 
 exports.get_latest_jobs = async (req, res) => {
+  console.log(moment(new Date()).format("L"))
   jobDb
-    .find()
+    .find({ status: { $in: ['active'] },applicationDeadline: { $gte: moment(new Date()).format("L")}  })
     .sort({ _id: -1 })
     // .limit(8)
     .populate("company")
