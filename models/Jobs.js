@@ -54,6 +54,10 @@ const JobsSchema = new mongoose.Schema(
       // preferdCandidateLocation: String,
       typeWorks: String,
     },
+    queshow:{
+      type: String,
+      required: true,
+    },
     question: [],
     address: {
       country: String,
