@@ -23,9 +23,10 @@ exports.addJobs = (req, res) => {
     const jobRole = req.body.jobRole
     // quistion,
     const question = req.body.question
+    const queshow = req.body.queshow
     const jobDescription = req.body.jobDescription
   const address =req.body.location
-
+  
 
   const user = new jobDb({
     company:company,
@@ -37,6 +38,7 @@ exports.addJobs = (req, res) => {
     requiredSkill: requiredSkill,
     // referredBy: referredBy,
     jobApplyType: jobApplyType,
+    queshow: queshow,
     salary: salary,
     essentialInformation: essentialInformation,
     question: question,
@@ -121,15 +123,15 @@ exports.addJObtype = async (req,res) =>{
 }
   
   exports.get_job_relatesd_data_count = async (req, res) => {
-    const jobCount = await jobDb.countDocuments({}).exec();
+    const jobCount = await jobDb.countDocuments({ status: { $in: ['active'] },applicationDeadline: { $gte: moment(new Date()).format("L")}  }).exec();
     const companyCount = await companydb.countDocuments({}).exec();
     const userCount = await userdb
       .countDocuments({ recrootUserType: "Candidate" })
       .exec();
     const dateTo = moment().format("YYYY-MM-DD");
     const dateFrom = moment().subtract(7, "d").format("YYYY-MM-DD");
-    const jobsLastSevenDays = await User.countDocuments({
-      created_at: { $lt: dateTo, $gt: dateFrom },
+    const jobsLastSevenDays = await jobDb.countDocuments({
+     status: { $in: ['active'] },applicationDeadline: { $gte: moment(new Date()).format("L")} , created_at: { $lt: dateTo, $gt: dateFrom },
     });
     res
       .status(200)
