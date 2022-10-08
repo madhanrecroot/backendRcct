@@ -258,7 +258,9 @@ app.post("/login", async (req, res, next) => {
         if (error) return next(error);
 
         const body = { _id: user._id, email: user.email };
-        const token = jwt.sign({ user: body }, "TOP_SECRET");
+        const token = jwt.sign({ user: body }, process.env.TOKEN_KEY,{
+          expiresIn: "24h",
+        });
 
         return res.json({ User: user, token });
       });
@@ -283,7 +285,7 @@ app.get("/login/success", (req, res) => {
       { user_id: req.user.id, email },
       process.env.TOKEN_KEY,
       {
-        expiresIn: "2h",
+        expiresIn: "1h",
       }
     );
     // save user token
