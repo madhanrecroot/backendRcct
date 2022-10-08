@@ -1,6 +1,9 @@
 const companyController = require("../controllers/company.controller");
+const s3Uploader = require("../uploader");
 const {upload5,upload6 } = require("../multer");
 const router = require("express").Router();
+const auth = require("../middleware/jwtAuth");
+
 module.exports = (app) => {
   router.get("/company", companyController.company_record);
   router.get("/salarySort", companyController.sortby_salary);
@@ -21,15 +24,15 @@ module.exports = (app) => {
   router.get("/company/hour/:from/:to", companyController.getby_salaryhour);
   router.get("/company/annual/:from/:to", companyController.getby_salaryannual);
   
-  router.get ("/getApplyCanditates/:id",companyController.getApplied_Candit)
-  router.get ("/getResumeSin/:id",companyController.getResumebyID)
-  router.get("/getJobsComp/:id",companyController.getJobsbycop)
-  router.get("/getMember/:id",companyController.getMembers)
-  router.post("/updateCompanyDetails/:id",companyController.update_details)
+  router.get ("/getApplyCanditates/:id",auth,companyController.getApplied_Candit)
+  router.get ("/getResumeSin/:id",auth,companyController.getResumebyID)
+  router.get("/getJobsComp/:id",auth,companyController.getJobsbycop)
+  router.get("/getMember/:id",auth,companyController.getMembers)
+  router.post("/updateCompanyDetails/:id",auth,companyController.update_details)
   router.post(
-    "/updateCompanyLogo/:id",
+    "/updateCompanyLogo/:id",auth,
     upload5.single("logo"),
-    companyController.add_CompanyLogo
+    s3Uploader.add_CompanyLogo
   );
   // router.post(
   //   "/updateCompanyPhotos/:id",
@@ -39,5 +42,5 @@ module.exports = (app) => {
   app.use("/api", router);
 };
 
-router.get ("/getCompanyDetails/:id",companyController.getCompany)
-router.get ("/getCompanyPhotos/",companyController.open_photos)
+router.get ("/getCompanyDetails/:id",auth,companyController.getCompany)
+router.get ("/getCompanyPhotos/",s3Uploader.open_photos)

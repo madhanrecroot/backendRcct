@@ -2,6 +2,7 @@ const jobController = require("../controllers/job.controller");
 const subscriberController = require("../controllers/subscribe.controller");
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
+const auth = require("../middleware/jwtAuth");
 
 const userValidationRules = () => {
   return [
@@ -15,12 +16,12 @@ const userValidationRules = () => {
 module.exports = (app) => {
   router.get("/getLatestJobs", jobController.get_latest_jobs);
   router.get("/search/:id/:id/:id", jobController.searchJobs);
-  router.post("/addJob/:id", jobController.addJobs);
-  router.post("/editJob/:id/:Cid", jobController.update_Job_details);
-  router.post("/applyJob", jobController.applyJobs);
+  router.post("/addJob/:id",auth, jobController.addJobs);
+  router.post("/editJob/:id/:Cid",auth, jobController.update_Job_details);
+  router.post("/applyJob",auth, jobController.applyJobs);
   router.post("/addType", jobController.addJObtype);
-  router.put("/updateStatus/:id", jobController.UpdateStatus);
-  router.put("/updateJobStatus/:id", jobController.UpdateJobStatus);
+  router.put("/updateStatus/:id",auth, jobController.UpdateStatus);
+  router.put("/updateJobStatus/:id",auth, jobController.UpdateJobStatus);
   // router.post("/addJob/:id", 
   // // userValidationRules,
   //  jobController.addJobs);
@@ -33,9 +34,9 @@ module.exports = (app) => {
     "/getJobRelatetDataCounts",
     jobController.get_job_relatesd_data_count
   );
-  router.get("/getTypesJobs", jobController.getJobsTypes);
-  router.get("/getTypesSingle/:id", jobController.getJobsTypesId);
-  router.get("/getApplyjobs/:id", jobController.getApplJObs);
+  router.get("/getTypesJobs",auth, jobController.getJobsTypes);
+  router.get("/getTypesSingle/:id",auth, jobController.getJobsTypesId);
+  router.get("/getApplyjobs/:id",auth, jobController.getApplJObs);
 
   app.use("/api", router);
 };
