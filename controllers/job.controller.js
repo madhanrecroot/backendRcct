@@ -55,7 +55,7 @@ exports.addJobs = (req, res) => {
 
 
 exports.applyJobs = (req, res) => {
-console.log(req.body)
+
   const {
     resumeId,
     coverId,
@@ -81,7 +81,7 @@ console.log(req.body)
 }
 
 exports.get_latest_jobs = async (req, res) => {
-  console.log(moment(new Date()).format("L"))
+  
   jobDb
     .find({ status: { $in: ['active'] },applicationDeadline: { $gte: moment(new Date()).format("L")}  })
     .sort({ _id: -1 })
@@ -181,7 +181,7 @@ exports.addJObtype = async (req,res) =>{
   exports.UpdateStatus = async (req, res) => {
 const id = req.params.id
 const status =req.body.status
-    console.log(id,'apply');
+   
     applyJobDb.findByIdAndUpdate(
       id, { status: status }, function (err, docs) {
       if (err) {
@@ -224,7 +224,7 @@ exports.update_Job_details = async (req, res) => {
     const jobDescription = req.body.jobDescription
   const address =req.body.location
   const company = req.params.Cid
-console.log(req.params.Cid,req.params.id)
+
   jobDb.findByIdAndUpdate(
     ObjectId(req.params.id),
     {

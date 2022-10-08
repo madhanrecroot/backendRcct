@@ -354,6 +354,7 @@ exports.post_skill =(req, res) => {
 
 exports.edit_exp =(req, res) => {
   const id =req.params.id;;
+  console.log(req.body)
   Users.findOneAndUpdate({'resume.workExperience._id':ObjectId(id)},
   {$set:{
     'resume.workExperience.$.companyName':req.body.companyName,
