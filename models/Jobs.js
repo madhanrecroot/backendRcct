@@ -51,7 +51,7 @@ const JobsSchema = new mongoose.Schema(
       careerlevel: String,
       experience: String,
       qualification: String,
-      // preferdCandidateLocation: String,
+      preferdCandidateLocation: [],
       typeWorks: String,
     },
     queshow:{

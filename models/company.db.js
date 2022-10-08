@@ -5,14 +5,28 @@ const CompanySchema = mongoose.Schema(
     company_name:{
       type:String
     },
-    basicInformation:{cmpname:{
+    basicInformation:{
+      cmpname:{
       type:String,
       default:null
-    } },
+    },
+    cmpphone:{
+      type:String,
+    },
+    cmpemail:{
+      type:String,
+    },
+    cmpwebsite:{
+      type:String,
+    },
+  },
     companyInformation:{
       infosector:{
         type:String,
       default:null  
+      },
+      infodes:{
+        type:String
       }
     },
     members:[],
